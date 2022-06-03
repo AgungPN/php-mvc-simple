@@ -1,0 +1,17 @@
+# untuk menghindari ambigu/kesalahan memanggil folder/file
+Options -Multiviews
+
+# menulis ulang URL
+RewriteEngine On
+# jika url yang ditulis merupakan folder name, maka akan diabaikan
+RewriteCond %{REQUEST_FILENAME} !-d
+# jika url yang ditulis merupakan file name, maka akan diabaikan
+RewriteCond %{REQUEST_FILENAME} !-f
+# untuk merubah nama file
+# ^(.*)$ regex untuk mengambil karakter 1 per 1 dari awal sampai akhir
+# [L] kalau rule/format url sudah terpenuhi maka hentikan 
+RewriteRule ^(.*)$ index.php?url=$1 [L]
+
+
+ErrorDocument 404 /mvc/mvcwpu/app/view/error/404.php
+ErrorDocument 500 /mvc/mvcwpu/app/view/error/500.php

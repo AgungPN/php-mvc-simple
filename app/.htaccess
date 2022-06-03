@@ -1,0 +1,19 @@
+# coba-coba start
+# mempercantik tampilan folder di webisite
+IndexOptions IgnoreCase FancyIndexing FoldersFirst
+ 
+
+# ==== PASSWORD ====
+# AuthName "hanya untukku"
+# AuthUserFile e:\laragon\www\mvc\mvcwpu\app
+# AuthType Basic
+# require valid-user
+
+# error redirect (path dimulai dari root)
+ErrorDocument 404 /mvc/mvcwpu/app/view/error/404.php
+ErrorDocument 500 /mvc/mvcwpu/app/view/error/500.php
+# coba-coba end
+
+# === FOR MVC ===
+# hanya mengizinkan mengakses index file
+Options -Indexes
