@@ -5,11 +5,11 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title><?= $title ; ?></title>
-	<link rel="stylesheet" href="<?= BASEURL ?>./assets/css/tailwind.css">
+	<title><?= $title; ?></title>
+	<link rel="stylesheet" href="<?= BASEURL ?>/assets/css/tailwind.css">
 </head>
 
-<body>
+<body class="bg-gray-50">
 	<nav class="bg-gray-800 mb-5">
 		<div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
 			<div class="relative flex items-center justify-between h-12">
@@ -26,5 +26,5 @@
 			</div>
 		</div>
 	</nav>
-		
+
 	<div class="container mx-auto px-4">

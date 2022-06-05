@@ -15,7 +15,7 @@ class MahasiswaModel
 
     public function getAllMahasiswa(): ?array
     {
-        $this->db->query("SELECT nama FROM mahasiswa");
+        $this->db->query("SELECT nama,id FROM mahasiswa");
         return $this->db->getList();
     }
 
