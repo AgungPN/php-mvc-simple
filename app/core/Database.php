@@ -3,21 +3,24 @@
 namespace App\Core;
 
 use App\Interfaces\DatabaseInterface;
+use App\Exception\DatabaseException;
 use \PDO;
 use \PDOException;
+use PDOStatement;
 
+/** @author Agung Prasetyo Nugroho <agungpn33@gmail.com> */
 class Database implements DatabaseInterface
 {
-	private $dbh;
-	private $stmt;
-	private $host = HOST;
-	private $dbName = DB_NAME;
-	private $username = USERNAME;
-	private $password = PASSWORD;
+	private PDOStatement $stmt;
+	private PDO $dbh;
+	private string $host = DB_HOST,
+		$dbName = DB_NAME,
+		$username = DB_USERNAME,
+		$password = DB_PASSWORD;
 
 	public function __construct()
 	{
-		// data source name
+		/** @var string data source name */
 		$dsn = "mysql:host={$this->host};dbname={$this->dbName};";
 		// DOCUMENT option https://www.php.net/manual/en/pdo.setattribute.php
 		$options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
@@ -34,28 +37,43 @@ class Database implements DatabaseInterface
 		return $this;
 	}
 
-	public function bind(string $param, $value, ?string $type = null): Database
+	public function singleBind(string $param, $value, ?string $type = null): Database
 	{
-		if (is_null($type)) {
-			if (is_int($value))
-				$type = PDO::PARAM_INT;
-			elseif (is_bool($value))
-				$type = PDO::PARAM_BOOL;
-			elseif (is_null($value))
-				$type = PDO::PARAM_NULL;
-			elseif (is_string($value))
-				$type = PDO::PARAM_STR;
-			else
-				$type = FALSE;
-		}
+		if (is_null($type))
+			$type = $this->setTypeValue($value);
+
 		if ($type)
 			$this->stmt->bindValue($param, $value, $type);
 		return $this;
 	}
 
+	public function bind(array $data): Database
+	{
+		foreach ($data as $key => $value) {
+			$type = $this->setTypeValue($value);
+			if ($type) $this->stmt->bindValue($key, $value, $type);
+		}
+		return $this;
+	}
+
+	private function setTypeValue($value)
+	{
+		if (is_int($value)) $type = PDO::PARAM_INT;
+		elseif (is_bool($value)) $type = PDO::PARAM_BOOL;
+		elseif (is_null($value)) $type = PDO::PARAM_NULL;
+		elseif (is_string($value)) $type = PDO::PARAM_STR;
+		else $type = FALSE;
+
+		return $type;
+	}
+
 	public function execute(): Database
 	{
-		$this->stmt->execute();
+		try {
+			$this->stmt->execute();
+		} catch (\Throwable $th) {
+			throw new DatabaseException("Terjadi Masalah!");
+		}
 		return $this;
 	}
 
@@ -71,9 +89,8 @@ class Database implements DatabaseInterface
 		return $this->stmt->fetch(PDO::FETCH_OBJ);
 	}
 
-	public function numRows(): ?int
+	public function rowCount(): ?int
 	{
-		$this->execute();
 		return $this->stmt->rowCount();
 	}
 }

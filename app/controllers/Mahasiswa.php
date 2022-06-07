@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Core\FlashMessage;
+use App\Exception\DatabaseException;
 use App\Interfaces\ControllerInterface;
 
 class Mahasiswa extends Controller implements ControllerInterface
@@ -18,13 +20,48 @@ class Mahasiswa extends Controller implements ControllerInterface
 		$this->view("templates/footer");
 	}
 
+	public function create()
+	{
+		$data["title"] = $this->title;
+		$this->view("templates/header", $data);
+		$this->view("mahasiswa/create");
+		$this->view("templates/footer");
+	}
+
+	public function store()
+	{
+		// TODO: make validation input
+
+		try {
+			if ($this->model("MahasiswaModel")->create($_POST) > 0)
+				FlashMessage::setFlashMessage("success", "Data berhasil ditambahkan!", "Berhasil");
+			else
+				FlashMessage::setFlashMessage("error", "Data gagal ditambahkan!", "Gagal");
+		} catch (DatabaseException $th) {
+			FlashMessage::setFlashMessage("error", "{$th->getMessage()}", "Gagal");
+		}
+		header("Location: " . BASEURL . "/mahasiswa");
+		exit;
+	}
+
 	public function show($id)
 	{
 		$getStudent = $this->model("MahasiswaModel")->getMahasiswaById($id);
 		$data["title"] = $this->title;
 		$data["student"] = $getStudent;
-		$this->view("templates/header",$data);
-		$this->view("mahasiswa/show",$data);
+		$this->view("templates/header", $data);
+		$this->view("mahasiswa/show", $data);
 		$this->view("templates/footer");
+	}
+
+	public function destroy($id)
+	{
+		$result = $this->model("MahasiswaModel")->delete($id);
+		if ($result > 0)
+			FlashMessage::setFlashMessage("success", "Data berhasil dihapus!", "Berhasil");
+		else
+			FlashMessage::setFlashMessage("error", "Data gagal dihapus!", "Gagal");
+		header("Location: " . BASEURL . "/mahasiswa");
+		exit;
 	}
 }

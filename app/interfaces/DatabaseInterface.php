@@ -4,6 +4,7 @@ namespace App\Interfaces;
 
 use App\Core\Database;
 
+/** @author Agung Prasetyo Nugroho <agungpn33@gmail.com> */
 interface DatabaseInterface
 {
     /**
@@ -15,14 +16,22 @@ interface DatabaseInterface
     public function query(string $query): Database;
 
     /**
-     * binding parameter query
+     * binding one parameter query
      *
      * @param mixed $param
      * @param mixed $value
      * @param null|string $type
      * @return Database
      */
-    public function bind(string $param, $value, ?string $type): Database;
+    public function singleBind(string $param, $value, ?string $type): Database;
+
+	/**
+	 * binding parameter query
+	 *
+	 * @param array $data array assoc, key is param 
+	 * @return Database
+	 */
+	public function bind(array $data): Database;
 
     /**
      * execute query
@@ -45,10 +54,11 @@ interface DatabaseInterface
      */
     public function getOne();
 
-    /**
-     * count rows from result query
-     *
-     * @return integer|null
-     */
-    public function numRows(): ?int;
+	/**
+	 * count how many row change in database
+	 *
+	 * @return ?int
+	 */
+	public function rowCount(): ?int;
+
 }

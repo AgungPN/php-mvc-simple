@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><?= $title; ?></title>
 	<link rel="stylesheet" href="<?= BASEURL ?>/assets/css/tailwind.css">
+	<script src="<?= BASEURL ?>//sweetalert2/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="bg-gray-50">
