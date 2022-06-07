@@ -3,7 +3,8 @@
 namespace App\Model;
 
 use App\Core\Database;
-
+use DateTime;
+use DateTimeZone;
 class MahasiswaModel
 {
 	private Database $db;
@@ -29,8 +30,15 @@ class MahasiswaModel
 
 	public function create($request): ?int
 	{
-		$createdAt = date("Y-m-d");
-		$updatedAt = date("Y-m-d");
+		/* 
+		VERSI PROCEDURAL:
+		date_default_timezone_set("Asia/Jakarta");
+		date("Y-m-d H:i:s"); 
+		*/
+
+		$date = new DateTime("now", new DateTimeZone(TIME_ZONE));
+		$createdAt = $date->format("Y-m-d H:i:s");
+		$updatedAt = $date->format("Y-m-d H:i:s");
 		$result =
 			$this->db->query("INSERT INTO {$this->table} (nama,nim,email,jurusan,created_at,updated_at) VALUES (:name,:nim,:email,:jurusan,:created_at,:updated_at)")
 			->bind([

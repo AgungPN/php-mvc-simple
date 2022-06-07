@@ -7,6 +7,7 @@ use App\Core\FlashMessage;
 use App\Exception\DatabaseException;
 use App\Interfaces\ControllerInterface;
 
+/** @author Agung Prasetyo Nugroho <agungpn33@gmail.com> */
 class Mahasiswa extends Controller implements ControllerInterface
 {
 	private $title = "Mahasiswa";

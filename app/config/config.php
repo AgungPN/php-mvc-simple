@@ -11,6 +11,5 @@ define('DB_PASSWORD', '');
 define('DB_NAME', 'php_mvc_latihan1');
 define('DB_HOST', "localhost");
 
-
-
-
+// timezone
+define('TIME_ZONE', "Asia/Jakarta");
