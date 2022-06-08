@@ -55,6 +55,33 @@ class Mahasiswa extends Controller implements ControllerInterface
 		$this->view("templates/footer");
 	}
 
+	public function edit($id)
+	{
+		$getStudent = $this->model("MahasiswaModel")->getMahasiswaById($id);
+		$data["title"] = $this->title;
+		$data["student"] = $getStudent;
+
+		$this->view("templates/header", $data);
+		$this->view("mahasiswa/edit", $data);
+		$this->view("templates/footer");
+	}
+
+	public function update()
+	{
+		// TODO: add validation
+
+		try {
+			if ($this->model("MahasiswaModel")->update($_POST))
+				FlashMessage::setFlashMessage("success", "Data berhasil ditambahkan", "berhasil");
+			else
+				FlashMessage::setFlashMessage("error", "Data gagal ditambahkan");
+		} catch (\Throwable $th) {
+			FlashMessage::setFlashMessage("error", "{$th->getMessage()}");
+		}
+		header("Location: " . BASEURL . '/mahasiswa');
+		exit;
+	}
+
 	public function destroy($id)
 	{
 		$result = $this->model("MahasiswaModel")->delete($id);

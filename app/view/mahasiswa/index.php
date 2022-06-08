@@ -1,7 +1,7 @@
 <h1 class="font-bold text-3xl mb-3">Ini halaman mahasiswa</h1>
 
-<a href="<?= BASEURL . '/mahasiswa/create' ?>" class="bg-blue-500 text-white py-1 px-2 rounded-md my-5 hover:font-bold hover:bg-blue-600">Tambah Data</a>
-<div class="w-1/2 bg-white rounded-lg shadow-lg lg:w-1/2 p-5">
+<a href="<?= BASEURL . '/mahasiswa/create' ?>" class="bg-blue-500 text-white py-1 px-2 rounded-md hover:font-bold hover:bg-blue-600 mb-3">Tambah Data</a>
+<div class="w-1/2 bg-white rounded-lg shadow-lg lg:w-1/2 p-5 mt-3">
 	<ul class="divide-y-2 divide-gray-400">
 		<?php if ($students == null) : ?>
 			<li class="font-bold text-red-500 text-center">Data kosong!</li>

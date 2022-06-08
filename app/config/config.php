@@ -1,7 +1,5 @@
 <?php
 
-// namespace App\Config;
-
 // base URL
 define('BASEURL', "http://localhost/mvc/mvcwpu/public");
 

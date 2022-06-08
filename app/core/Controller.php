@@ -15,7 +15,6 @@ class Controller
 	 * call model class 
 	 *
 	 * @param string $model name class model
-	 * @return Model 
 	 */
 	public function model($model)
 	{
