@@ -9,7 +9,9 @@ use DateTimeZone;
 class MahasiswaModel
 {
 	private Database $db;
-	private string $table = "mahasiswa";
+	private string $table = "mahasiswa",
+		$where = "";
+	private $value;
 
 	public function __construct()
 	{
@@ -27,6 +29,19 @@ class MahasiswaModel
 		$result = $this->db->query("SELECT * FROM {$this->table} WHERE id=:id")
 			->singleBind("id", $id)->execute()->getOne();
 		return $result;
+	}
+
+	public function getListMahasiswa(): ?array
+	{
+		$result = $this->db->query("SELECT * FROM {$this->table} " . $this->where)->singleBind("" . array_keys($this->value)[0], array_values($this->value)[0])->execute()->getList();
+		return $result;
+	}
+
+	public function where(string $param, ?string $operator = "=", $value): self
+	{
+		$this->where = "WHERE $param $operator :$param";
+		$this->value = [$param => $value];
+		return $this;
 	}
 
 	private function getDateNow(?string $format = "Y-m-d H:i:s")
@@ -71,7 +86,7 @@ class MahasiswaModel
 				"email" => $request["email"],
 				"jurusan" => $request["vocational"],
 				"updated_at" => $updatedAt,
-				"id"=>$request["id"]
+				"id" => $request["id"]
 			])->execute()->rowCount();
 		return $result;
 	}

@@ -1,7 +1,7 @@
 <?php
 
 // base URL
-define('BASEURL', "http://localhost/mvc/mvcwpu/public");
+define('BASEURL', "http://localhost/mvc/mvc-simple/public");
 
 // Database
 define('DB_USERNAME', "root");

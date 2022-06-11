@@ -31,23 +31,21 @@ class Database implements DatabaseInterface
 		}
 	}
 
-	public function query(string $query): Database
+	public function query(string $query): self
 	{
 		$this->stmt = $this->dbh->prepare($query);
 		return $this;
 	}
 
-	public function singleBind(string $param, $value, ?string $type = null): Database
+	public function singleBind(string $param, $value, ?string $type = null): self
 	{
-		if (is_null($type))
-			$type = $this->setTypeValue($value);
+		if (is_null($type)) $type = $this->setTypeValue($value);
 
-		if ($type)
-			$this->stmt->bindValue($param, $value, $type);
+		if ($type) $this->stmt->bindValue($param, $value, $type);
 		return $this;
 	}
 
-	public function bind(array $data): Database
+	public function bind(array $data): self
 	{
 		foreach ($data as $key => $value) {
 			$type = $this->setTypeValue($value);
@@ -56,7 +54,7 @@ class Database implements DatabaseInterface
 		return $this;
 	}
 
-	private function setTypeValue($value)
+	private function setTypeValue($value): int
 	{
 		if (is_int($value)) $type = PDO::PARAM_INT;
 		elseif (is_bool($value)) $type = PDO::PARAM_BOOL;
@@ -67,7 +65,7 @@ class Database implements DatabaseInterface
 		return $type;
 	}
 
-	public function execute(): Database
+	public function execute(): self
 	{
 		try {
 			$this->stmt->execute();

@@ -13,7 +13,7 @@ interface DatabaseInterface
      * @param string $query
      * @return Database
      */
-    public function query(string $query): Database;
+    public function query(string $query): self;
 
     /**
      * binding one parameter query
@@ -23,7 +23,7 @@ interface DatabaseInterface
      * @param null|string $type
      * @return Database
      */
-    public function singleBind(string $param, $value, ?string $type): Database;
+    public function singleBind(string $param, $value, ?string $type): self;
 
 	/**
 	 * binding parameter query
@@ -31,14 +31,14 @@ interface DatabaseInterface
 	 * @param array $data array assoc, key is param 
 	 * @return Database
 	 */
-	public function bind(array $data): Database;
+	public function bind(array $data): self;
 
     /**
      * execute query
      *
      * @return Database
      */
-    public function execute(): Database;
+    public function execute(): self;
 
     /**
      * get rows from result query
