@@ -1,3 +1,5 @@
+<?php view("templates/header.php",$data); ?>
+
 <div class="bg-green-300 p-20 rounded shadow-lg w-1/3">
 	<form action="<?= BASEURL ?>/mahasiswa/update" class="grid grid-cols-1 justify-center" method="post">
 		<input type="hidden" name="id" value="<?= $student->id ?>">
@@ -25,3 +27,5 @@
 		<input type="submit" value="edit" class="bg-green-500 p-2 rounded-md text-white">
 	</form>
 </div>
+
+<?php view("templates/footer.php") ?>

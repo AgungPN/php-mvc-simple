@@ -16,18 +16,16 @@ class Mahasiswa extends Controller implements ControllerInterface
 	{
 		$data["title"] = $this->title;
 		$data["students"] = $this->model("MahasiswaModel")->getAllMahasiswa();
-		$this->view("templates/header", $data);
 		$this->view("mahasiswa/index", $data);
-		$this->view("templates/footer");
 	}
 
 	public function search()
 	{
 		$textSearch = $_POST["search"];
 		$data["title"] = $this->title;
-		$data["students"] = $this->model("MahasiswaModel")->where("nama","LIKE","%".$textSearch."%")->getListMahasiswa();
-		$this->view("templates/header",$data);
-		$this->view("mahasiswa/index",$data);
+		$data["students"] = $this->model("MahasiswaModel")->where("nama", "LIKE", "%" . $textSearch . "%")->getListMahasiswa();
+		$this->view("templates/header", $data);
+		$this->view("mahasiswa/index", $data);
 		$this->view("templates/footer");
 	}
 

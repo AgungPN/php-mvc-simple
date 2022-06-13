@@ -1,3 +1,5 @@
+<?php view("templates/header.php",$data); ?>
+
 <div class="bg-blue-300 p-20 rounded shadow-lg w-1/3">
 	<form action="<?= BASEURL ?>/mahasiswa/store" class="grid grid-cols-1 justify-center" method="post">
 	 	<h1 class="text-3xl mb-3 font-bold">Tambah Mahasiswa</h1>
@@ -24,3 +26,5 @@
 		<input type="submit" value="submit" class="bg-blue-500 p-2 rounded-md text-white">
 	</form>
 </div>
+
+<?php view("templates/footer.php") ?>
