@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../../vendor/autoload.php";
-// dirname to access root folder (means without '/pulbic')
+// dirname to access root directory or parent directory
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__) . '/../');
 $dotenv->load();
 
