@@ -1,13 +1,18 @@
 <?php
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+// dirname to access root folder (means without '/pulbic')
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__) . '/../');
+$dotenv->load();
+
 // base URL
-define('BASEURL', "http://localhost/mvc/mvc-simple/public");
+define('BASEURL', $_ENV["BASEURL"]);
 
 // Database
-define('DB_USERNAME', "root");
-define('DB_PASSWORD', '');
-define('DB_NAME', 'php_mvc_latihan1');
-define('DB_HOST', "localhost");
+define('DB_USERNAME', $_ENV["DB_USERNAME"]);
+define('DB_PASSWORD', $_ENV["DB_PASSWORD"]);
+define('DB_NAME', $_ENV["DB_NAME"]);
+define('DB_HOST', $_ENV["DB_HOST"]);
 
 // timezone
-define('TIME_ZONE', "Asia/Jakarta");
+define('TIME_ZONE', $_ENV["TIME_ZONE"]);
