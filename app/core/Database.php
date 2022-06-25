@@ -60,7 +60,7 @@ class Database implements DatabaseInterface
 		elseif (is_bool($value)) $type = PDO::PARAM_BOOL;
 		elseif (is_null($value)) $type = PDO::PARAM_NULL;
 		elseif (is_string($value)) $type = PDO::PARAM_STR;
-		else $type = FALSE;
+		else throw new \Exception("type not valid");
 
 		return $type;
 	}

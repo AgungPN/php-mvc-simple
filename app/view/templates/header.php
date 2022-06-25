@@ -18,9 +18,7 @@
 					<div class="hidden sm:block sm:ml-6">
 						<div class="flex space-x-4" id="list-menu">
 							<a class=" text-white text-4xs px-3 py-2  font-bold " aria-current="page">MVC PHP</a>
-							<a href="<?= BASEURL ?>" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
-							<a href="<?= BASEURL ?>/about" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
-							<a href="<?= BASEURL ?>/mahasiswa" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Mahasiswa</a>
+							<a href="<?= BASEURL ?>/mahasiswa" class="text-white hover:bg-gray-700 bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Mahasiswa</a>
 						</div>
 					</div>
 				</div>

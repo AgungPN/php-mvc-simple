@@ -25,4 +25,29 @@ class FlashMessage
 			unset($_SESSION["flash"]);
 		}
 	}
+
+	public static function setFlashMessageArray(string $typeIcon, array $messages): void
+	{
+		$_SESSION["flashArray"] = ["type" => $typeIcon, "messages" => (object)$messages];
+	}
+
+	public static function getFlashMessageArray(): void
+	{
+		if (isset($_SESSION["flashArray"])) {
+			$alert = $_SESSION["flashArray"];
+			$type = $alert["type"];
+			$messages = $alert["messages"];
+
+			foreach ($messages as $message) {
+				echo "<script>
+					Toast.fire({
+						icon: '" . $type . "',
+						title: '" . $message . "'
+				})	
+				</script>";
+				// echo "<script>console.log('".$message."')</script>";
+			}
+			unset($_SESSION['flashArray']);
+		}
+	}
 }

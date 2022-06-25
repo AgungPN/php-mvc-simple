@@ -38,7 +38,7 @@ class Mahasiswa extends Controller implements ControllerInterface
 		$this->view("templates/footer");
 	}
 
-	private function rules($source, Validation $validate): Validation
+	private function rules($source, Validation $validate, ?int $escapeId = null): Validation
 	{
 		$validate->check($source, [
 			"name" => [
@@ -49,11 +49,11 @@ class Mahasiswa extends Controller implements ControllerInterface
 			"nim" => [
 				"required" => true,
 				"length" => 9,
-				"unique" => ["table" => "mahasiswa", "field" => "nim"],
+				"unique" => ["table" => "mahasiswa", "field" => "nim", "escapeId" => $escapeId],
 			],
 			"email" => [
 				"required" => true,
-				"unique" => ["table" => "mahasiswa", "field" => "email"],
+				"unique" => ["table" => "mahasiswa", "field" => "email", "escapeId" => $escapeId],
 			],
 			"vocational" => [
 				"required" => true,
@@ -68,10 +68,7 @@ class Mahasiswa extends Controller implements ControllerInterface
 		$validate = $this->rules($_POST, $validate);
 		if (!empty($validate->error())) {
 			$errors = $validate->error();
-			// TODO:fix message error input
-			foreach ($errors as $error) {
-				FlashMessage::setFlashMessage("error", $error, "Masalah");
-			}
+			FlashMessage::setFlashMessageArray("error",$errors);
 			return $this->create();
 		}
 		try {
@@ -110,15 +107,12 @@ class Mahasiswa extends Controller implements ControllerInterface
 	public function update()
 	{
 		$validate = new Validation();
-		$validate = $this->rules($_POST, $validate);
+		$validate = $this->rules($_POST, $validate, $_POST['id']);
 
 		if (!empty($validate->error())) {
 			$errors = $validate->error();
-			// TODO:fix message error input
-			foreach ($errors as $error) {
-				FlashMessage::setFlashMessage("error", $error, "Masalah");
-			}
-			return $this->create();
+			FlashMessage::setFlashMessageArray("error", $errors);
+			return $this->edit($_POST['id']);
 		}
 
 		try {

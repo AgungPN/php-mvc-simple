@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+/** * @author Agung Prasetyo Nugroho <agungpn33@gmail.com> */
 class Validation
 {
 	private array $errors = [];
@@ -32,8 +33,8 @@ class Validation
 						if (strlen($value) != $ruleValue) $this->setError("$item must $ruleValue character");
 						break;
 					case 'unique':
-						$data = $this->db->query("SELECT " . $ruleValue['field'] . " FROM " . $ruleValue['table'] . " WHERE " . $ruleValue['field'] . " = " . ":$item")->singleBind($item,$value)->getOne();
-						if($data) $this->setError("$item value is already used");
+						$data = $this->db->query("SELECT " . $ruleValue['field'] . ",id FROM " . $ruleValue['table'] . " WHERE " . $ruleValue['field'] . " = " . ":$item")->singleBind($item,$value)->getOne();
+						if($data && $data->id != $ruleValue['escapeId']) $this->setError("$item value is already used");
 						break;
 				}
 			}
@@ -48,7 +49,7 @@ class Validation
 		$this->errors[] = $error;
 	}
 
-	public function error()
+	public function error(): array
 	{
 		$errors = $this->errors;
 		return $errors;

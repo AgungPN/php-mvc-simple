@@ -20,8 +20,7 @@ class MahasiswaModel
 
 	public function getAllMahasiswa(): ?array
 	{
-		$this->db->query("SELECT nama,id FROM mahasiswa");
-		return $this->db->getList();
+		return $this->db->query("SELECT nama,id FROM mahasiswa")->getList();
 	}
 
 	public function getMahasiswaById(int $id)
@@ -49,8 +48,8 @@ class MahasiswaModel
 	{
 		/* 
 		VERSI PROCEDURAL:
-		date_default_timezone_set("Asia/Jakarta");
-		date("Y-m-d H:i:s"); 
+		date_default_timezone_set(TIME_ZONE);
+		return date($format); 
 		*/
 
 		$date = new DateTime("now", new DateTimeZone(TIME_ZONE));
