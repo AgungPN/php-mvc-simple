@@ -37,6 +37,7 @@ class MahasiswaModel
 		return $result;
 	}
 
+	// in PHP 8 it will error, because we can't add default value in middle param
 	public function where(string $param, ?string $operator = "=", $value): self
 	{
 		$this->where = "WHERE $param $operator :$param";

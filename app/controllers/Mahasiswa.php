@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Core\FlashMessage;
+use App\Core\Validation;
 use App\Exception\DatabaseException;
 use App\Interfaces\ControllerInterface;
 
@@ -37,10 +38,42 @@ class Mahasiswa extends Controller implements ControllerInterface
 		$this->view("templates/footer");
 	}
 
+	private function rules($source, Validation $validate): Validation
+	{
+		$validate->check($source, [
+			"name" => [
+				"required" => true,
+				"min" => 5,
+				"max" => 60,
+			],
+			"nim" => [
+				"required" => true,
+				"length" => 9,
+				"unique" => ["table" => "mahasiswa", "field" => "nim"],
+			],
+			"email" => [
+				"required" => true,
+				"unique" => ["table" => "mahasiswa", "field" => "email"],
+			],
+			"vocational" => [
+				"required" => true,
+			],
+		]);
+		return $validate;
+	}
+
 	public function store()
 	{
-		// TODO: make validation input
-
+		$validate = new Validation();
+		$validate = $this->rules($_POST, $validate);
+		if (!empty($validate->error())) {
+			$errors = $validate->error();
+			// TODO:fix message error input
+			foreach ($errors as $error) {
+				FlashMessage::setFlashMessage("error", $error, "Masalah");
+			}
+			return $this->create();
+		}
 		try {
 			if ($this->model("MahasiswaModel")->create($_POST) > 0)
 				FlashMessage::setFlashMessage("success", "Data berhasil ditambahkan!", "Berhasil");
@@ -76,7 +109,17 @@ class Mahasiswa extends Controller implements ControllerInterface
 
 	public function update()
 	{
-		// TODO: add validation
+		$validate = new Validation();
+		$validate = $this->rules($_POST, $validate);
+
+		if (!empty($validate->error())) {
+			$errors = $validate->error();
+			// TODO:fix message error input
+			foreach ($errors as $error) {
+				FlashMessage::setFlashMessage("error", $error, "Masalah");
+			}
+			return $this->create();
+		}
 
 		try {
 			if ($this->model("MahasiswaModel")->update($_POST))
