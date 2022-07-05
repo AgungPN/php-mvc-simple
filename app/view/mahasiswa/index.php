@@ -1,4 +1,9 @@
-<?php view("templates/header.php",$data); ?>
+<?php
+/**
+ * @var object $students
+ * @var array $data
+ */
+view("templates/header.php",$data); ?>
 
 <h1 class="font-bold text-3xl mb-3">Ini halaman mahasiswa</h1>
 
@@ -18,8 +23,8 @@
 					<?= $student->nama ?>
 					<div class="flex justify-between gap-2">
 						<a href="<?= BASEURL . '/mahasiswa/show/' . $student->id ?>" class="bg-blue-400 text-white py-1 px-2 rounded">
-							Detail
-						</a>
+							Detai
+						</a>l
 						<a href="<?= BASEURL . '/mahasiswa/destroy/' . $student->id ?>" class="bg-red-400 text-white py-1 px-2 rounded delete-student" data-confirm="<?= $student->nama ?>">
 							Delete
 						</a>

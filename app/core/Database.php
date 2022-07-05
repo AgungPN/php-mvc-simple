@@ -2,8 +2,9 @@
 
 namespace App\Core;
 
-use App\Interfaces\DatabaseInterface;
+use App\interfaces\DatabaseInterface;
 use App\Exception\DatabaseException;
+use Exception;
 use \PDO;
 use \PDOException;
 use PDOStatement;
@@ -54,13 +55,16 @@ class Database implements DatabaseInterface
 		return $this;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	private function setTypeValue($value): int
 	{
 		if (is_int($value)) $type = PDO::PARAM_INT;
 		elseif (is_bool($value)) $type = PDO::PARAM_BOOL;
 		elseif (is_null($value)) $type = PDO::PARAM_NULL;
 		elseif (is_string($value)) $type = PDO::PARAM_STR;
-		else throw new \Exception("type not valid");
+		else throw new Exception("type not valid");
 
 		return $type;
 	}

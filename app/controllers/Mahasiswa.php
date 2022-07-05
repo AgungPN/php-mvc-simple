@@ -6,12 +6,12 @@ use App\Core\Controller;
 use App\Core\FlashMessage;
 use App\Core\Validation;
 use App\Exception\DatabaseException;
-use App\Interfaces\ControllerInterface;
+use App\interfaces\ControllerInterface;
 
 /** @author Agung Prasetyo Nugroho <agungpn33@gmail.com> */
 class Mahasiswa extends Controller implements ControllerInterface
 {
-	private $title = "Mahasiswa";
+	private string $title = "Mahasiswa";
 
 	public function index()
 	{

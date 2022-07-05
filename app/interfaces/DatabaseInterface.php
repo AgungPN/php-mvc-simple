@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use App\Core\Database;
+use Exception;
 
 /** @author Agung Prasetyo Nugroho <agungpn33@gmail.com> */
 interface DatabaseInterface
@@ -12,6 +13,7 @@ interface DatabaseInterface
      *
      * @param string $query
      * @return Database
+	 * @throws Exception
      */
     public function query(string $query): self;
 
@@ -21,6 +23,7 @@ interface DatabaseInterface
      * @param mixed $param
      * @param mixed $value
      * @param null|string $type
+	 * @throws Exception
      * @return Database
      */
     public function singleBind(string $param, $value, ?string $type): self;
@@ -28,7 +31,8 @@ interface DatabaseInterface
 	/**
 	 * binding parameter query
 	 *
-	 * @param array $data array assoc, key is param 
+	 * @param array $data array assoc, key is param
+	 * @throws Exception
 	 * @return Database
 	 */
 	public function bind(array $data): self;
@@ -36,6 +40,7 @@ interface DatabaseInterface
     /**
      * execute query
      *
+	 * @throws Exception
      * @return Database
      */
     public function execute(): self;
@@ -43,6 +48,7 @@ interface DatabaseInterface
     /**
      * get rows from result query
      *
+	 * @throws Exception
      * @return array|null
      */
     public function getList(): ?array;
@@ -50,6 +56,7 @@ interface DatabaseInterface
     /**
      * get one row form result query
      *
+	 * @throws Exception
      * @return mixed
      */
     public function getOne();

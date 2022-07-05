@@ -1,4 +1,9 @@
-<?php view("templates/header.php",$data); ?>
+<?php
+/**
+ * @var object $student
+ * @var array $data
+ */
+view("templates/header.php",$data); ?>
 
 <div class="bg-green-300 p-20 rounded shadow-lg w-1/3">
 	<form action="<?= BASEURL ?>/mahasiswa/update" class="grid grid-cols-1 justify-center" method="post">

@@ -1,3 +1,4 @@
+<?php /** @var object $student */ ?>
 <h1 class="uppercase text-3xl text-center">detail data mahasiswa</h1>
 <div class="mt-5 grid place-items-center w-full">
 	<ul class="w-3/4 text-left">
